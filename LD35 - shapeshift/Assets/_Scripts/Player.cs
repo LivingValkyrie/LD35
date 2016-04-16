@@ -115,7 +115,7 @@ public class Player : MonoBehaviour {
 			case PlayerForm.Defense:
 				if (Input.GetKeyDown(KeyCode.Space)) {
 					Vector3 spawnPos = transform.position + new Vector3(absorptionFieldOffest.x, absorptionFieldOffest.y);
-					absorptionField = Instantiate(absorptionFieldPrefab, spawnPos, Quaternion.Euler( 0, 0, 300 )) as GameObject;
+				absorptionField = Instantiate(absorptionFieldPrefab, spawnPos, Quaternion.identity) as GameObject;
 					absorptionField.transform.parent = gameObject.transform;
 				} else if (Input.GetKeyUp(KeyCode.Space)) {
 					if (absorptionField) {
