@@ -58,6 +58,7 @@ public class Player : MonoBehaviour {
 			timeShooting++;
 			if (timeShooting % fireRate == 0) {
 				GameObject temp = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
+				temp.GetComponent<Projectile>().velocity = new Vector2(0f, 1f);
 			}
 		}
 	}

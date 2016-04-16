@@ -16,6 +16,7 @@ public class Projectile : MonoBehaviour {
 	public ProjectileType type;
 	public float speed;
 	public float timeToDie = 5;
+	public Vector2 velocity;
 
 	#endregion
 	
@@ -24,7 +25,7 @@ public class Projectile : MonoBehaviour {
 	}
 	
 	void Update () {
-		transform.Translate(new Vector2(0f, speed * Time.deltaTime ) );
+		transform.Translate( velocity * speed * Time.deltaTime );
 	}
 }
 

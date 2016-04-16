@@ -37,7 +37,9 @@ public class Enemy : MonoBehaviour {
 		transform.Translate(velocity * Time.deltaTime);
 		if (velocity.magnitude >= minRange && velocity.magnitude <= maxRange) {
 			//within ranges
+			isShooting = true;
 			Shoot();
+
 		} else {
 			isShooting = false;
 			timeShooting = 0;
@@ -49,6 +51,7 @@ public class Enemy : MonoBehaviour {
 			timeShooting++;
 			if (timeShooting % fireRate == 0) {
 				GameObject temp = Instantiate(projectile, transform.position, Quaternion.identity ) as GameObject;
+				temp.GetComponent<Projectile>().velocity = target.transform.position - transform.position;
 			}
 		}
 	}
