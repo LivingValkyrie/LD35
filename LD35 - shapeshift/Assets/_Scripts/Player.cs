@@ -16,13 +16,22 @@ public class Player : MonoBehaviour {
 	public PlayerForm startingForm;
 	PlayerForm currForm, prevForm;
 
-	public Dictionary<KeyCode, PlayerForm> formKeys;
+	Vector2 velocity;
+	public float speed = 10;
+
+	GameObject projectile;
+	public int fireRate = 5;
+	int timeShooting;
 
 	#endregion
 
-	void Start() {}
+	void Start() {
+		currForm = prevForm = startingForm;
+		projectile = Resources.Load<GameObject>("Prefabs/Projectile - Player");
+	}
 
 	void Update() {
+		//change form?
 		if (Input.GetKeyDown(KeyCode.Alpha1)) {
 			ChangeForm(PlayerForm.Attack);
 		}
@@ -33,11 +42,34 @@ public class Player : MonoBehaviour {
 			ChangeForm(PlayerForm.Speed);
 		}
 
-		//print(currForm);
+		//movement
+		velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime,
+		                       Input.GetAxisRaw("Vertical") * speed * Time.deltaTime);
+		Move(velocity);
+
+		//shooting
+		Shoot();
+	}
+
+	public void Shoot() {
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			timeShooting = 0;
+		} else if (Input.GetKey(KeyCode.Space)) {
+			timeShooting++;
+			if (timeShooting % fireRate == 0) {
+				GameObject temp = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
+			}
+		}
+	}
+
+	public void Move(Vector2 velocity) {
+		transform.Translate(velocity);
 	}
 
 	public void ChangeForm(PlayerForm form) {
+		prevForm = currForm;
 		currForm = form;
+		print("changd form from " + prevForm + " to " + currForm);
 	}
 
 	PlayerForm PreviousForm() {
