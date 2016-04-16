@@ -14,15 +14,17 @@ public class Projectile : MonoBehaviour {
 	#region Fields
 
 	public ProjectileType type;
+	public float speed;
+	public float timeToDie = 5;
 
 	#endregion
 	
 	void Start () {
-	
+		Destroy(gameObject, timeToDie);
 	}
 	
 	void Update () {
-	
+		transform.Translate(new Vector2(0f, speed * Time.deltaTime ) );
 	}
 }
 
