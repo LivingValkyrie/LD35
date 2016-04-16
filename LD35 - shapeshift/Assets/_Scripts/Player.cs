@@ -33,7 +33,7 @@ public class Player : MonoBehaviour {
 			ChangeForm(PlayerForm.Speed);
 		}
 
-		print(currForm);
+		//print(currForm);
 	}
 
 	public void ChangeForm(PlayerForm form) {
