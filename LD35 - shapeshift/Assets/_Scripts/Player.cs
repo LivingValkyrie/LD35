@@ -25,6 +25,7 @@ public class Player : MonoBehaviour {
 	public float speed = 10;
 
 	GameObject projectile;
+	bool isFiring = true;
 	public int fireRate = 5;
 	int timeShooting;
 
@@ -39,12 +40,17 @@ public class Player : MonoBehaviour {
 	int timeShootingAttackSpecial;
 	public Vector2 attackSpecialOffset;
 
+	[Space(10)]
+	public GameObject absorptionFieldPrefab;
+	public Vector2 absorptionFieldOffest;
+	GameObject absorptionField;
+
 	#endregion
 
 	void Start() {
 		Debug.LogWarning("finish player states - special abilities");
 
-		formSprites = new Sprite[Enum.GetValues( typeof( PlayerForm ) ).Length];
+		formSprites = new Sprite[Enum.GetValues(typeof (PlayerForm)).Length];
 
 		for (int i = 0; i < Enum.GetValues(typeof (PlayerForm)).Length; i++) {
 			formSprites[i] = Resources.Load<Sprite>("Sprites/Player_" + (PlayerForm) i);
@@ -69,9 +75,17 @@ public class Player : MonoBehaviour {
 			ChangeForm(PlayerForm.Speed);
 		}
 
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			isFiring = !isFiring;
+		}
+
 		//move and shoot
 		Move();
-		Shoot();
+
+		if (isFiring) {
+			Shoot();
+		}
+
 		UseSpecial();
 	}
 
@@ -99,6 +113,15 @@ public class Player : MonoBehaviour {
 				}
 				break;
 			case PlayerForm.Defense:
+				if (Input.GetKeyDown(KeyCode.Space)) {
+					Vector3 spawnPos = transform.position + new Vector3(absorptionFieldOffest.x, absorptionFieldOffest.y);
+					absorptionField = Instantiate(absorptionFieldPrefab, spawnPos, Quaternion.Euler( 0, 0, 300 )) as GameObject;
+					absorptionField.transform.parent = gameObject.transform;
+				} else if (Input.GetKeyUp(KeyCode.Space)) {
+					if (absorptionField) {
+						Destroy(absorptionField);
+					}
+				}
 				break;
 			case PlayerForm.Speed:
 				break;
@@ -162,11 +185,15 @@ public class Player : MonoBehaviour {
 	}
 
 	public void ChangeForm(PlayerForm form) {
-			prevForm = currForm;
-			currForm = form;
-			formText.text = currForm.ToString();
-			myRenderer.sprite = formSprites[(int) currForm];
-		
+		prevForm = currForm;
+		currForm = form;
+		formText.text = currForm.ToString();
+		myRenderer.sprite = formSprites[(int) currForm];
+
+		//clean up
+		if (absorptionField) {
+			Destroy(absorptionField);
+		}
 	}
 
 	PlayerForm PreviousForm() {
