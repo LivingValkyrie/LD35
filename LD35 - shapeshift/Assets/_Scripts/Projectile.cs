@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour {
 
 	public ProjectileType type;
 	public float speed;
-	public float timeToDie = 5;
+	public float timeToDie = 3;
 	public Vector2 velocity;
 
 	#endregion
@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		print(other.tag);
+		//print(other.tag);
 		if (type == ProjectileType.PlayerShot) {
 			if (other.tag == "Enemy") {
 				other.GetComponent<Enemy>().TakeDamage();
@@ -39,6 +39,9 @@ public class Projectile : MonoBehaviour {
 			if (other.tag == "Player") {
 				other.GetComponent<Player>().TakeDamage();
 				Destroy(gameObject);
+			}else if ( other.tag == "AbsorptionField" ) {
+				other.transform.parent.GetComponent<Player>().attackSpecialAmmo++;
+				Destroy( gameObject );
 			}
 		}
 	}

@@ -18,6 +18,8 @@ public class Player : MonoBehaviour {
 
 	public PlayerForm startingForm;
 	PlayerForm currForm, prevForm;
+	Sprite[] formSprites;
+	SpriteRenderer myRenderer;
 
 	Vector2 velocity;
 	public float speed = 10;
@@ -31,63 +33,84 @@ public class Player : MonoBehaviour {
 
 	public Text formText;
 
+	[Header("Form Specials")]
+	public int attackSpecialAmmo = 15;
+	public int attackSpecialFireRate;
+	int timeShootingAttackSpecial;
+	public Vector2 attackSpecialOffset;
+
 	#endregion
 
 	void Start() {
+		Debug.LogWarning("finish player states - special abilities");
+
+		formSprites = new Sprite[Enum.GetValues( typeof( PlayerForm ) ).Length];
+
+		for (int i = 0; i < Enum.GetValues(typeof (PlayerForm)).Length; i++) {
+			formSprites[i] = Resources.Load<Sprite>("Sprites/Player_" + (PlayerForm) i);
+		}
+
 		currForm = prevForm = startingForm;
+		myRenderer = GetComponent<SpriteRenderer>();
+		myRenderer.sprite = formSprites[(int) currForm];
+
 		projectile = Resources.Load<GameObject>("Prefabs/Projectile - Player");
 		formText.text = currForm.ToString();
+		timeShooting = 0;
 	}
 
 	void Update() {
 		//change form?
 		if (Input.GetKeyDown(KeyCode.Alpha1)) {
 			ChangeForm(PlayerForm.Attack);
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha2)) {
+		} else if (Input.GetKeyDown(KeyCode.Alpha2)) {
 			ChangeForm(PlayerForm.Defense);
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha3)) {
+		} else if (Input.GetKeyDown(KeyCode.Alpha3)) {
 			ChangeForm(PlayerForm.Speed);
 		}
 
-		float moveSpeed;
+		//move and shoot
+		Move();
+		Shoot();
+		UseSpecial();
+	}
 
+	public void UseSpecial() {
 		switch (currForm) {
 			case PlayerForm.Attack:
-				moveSpeed = speed;
+				if (Input.GetKeyDown(KeyCode.Space)) {
+					timeShootingAttackSpecial = 0;
+				} else if (Input.GetKey(KeyCode.Space)) {
+					timeShootingAttackSpecial++;
+					if (timeShootingAttackSpecial % attackSpecialFireRate == 0) {
+						if (attackSpecialAmmo >= 1) {
+							attackSpecialAmmo--;
+							Vector3 spawnPos1 = transform.position + new Vector3(attackSpecialOffset.x, attackSpecialOffset.y);
+							GameObject temp1 = Instantiate(projectile, spawnPos1, Quaternion.identity) as GameObject;
+							temp1.GetComponent<Projectile>().velocity = new Vector2(0f, 1f);
+							temp1.GetComponent<Projectile>().type = ProjectileType.PlayerShot;
+
+							Vector3 spawnPos2 = transform.position + new Vector3(-attackSpecialOffset.x, attackSpecialOffset.y);
+							GameObject temp2 = Instantiate(projectile, spawnPos2, Quaternion.identity) as GameObject;
+							temp2.GetComponent<Projectile>().velocity = new Vector2(0f, 1f);
+							temp2.GetComponent<Projectile>().type = ProjectileType.PlayerShot;
+						}
+					}
+				}
 				break;
 			case PlayerForm.Defense:
-				moveSpeed = speed * 0.5f;
 				break;
 			case PlayerForm.Speed:
-				moveSpeed = speed * 2;
-				break;
-			default:
-				moveSpeed = speed;
 				break;
 		}
-
-		//movement
-		velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime,
-		                       Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime);
-
-		Move(velocity);
-
-		//shooting
-		Shoot();
 	}
 
 	public void Shoot() {
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			timeShooting = 0;
-		} else if (Input.GetKey(KeyCode.Space)) {
-			timeShooting++;
-			if (timeShooting % fireRate == 0) {
-				GameObject temp = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
-				temp.GetComponent<Projectile>().velocity = new Vector2(0f, 1f);
-				temp.GetComponent<Projectile>().type = ProjectileType.PlayerShot;
-			}
+		timeShooting++;
+		if (timeShooting % fireRate == 0) {
+			GameObject temp = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
+			temp.GetComponent<Projectile>().velocity = new Vector2(0f, 1f);
+			temp.GetComponent<Projectile>().type = ProjectileType.PlayerShot;
 		}
 	}
 
@@ -114,16 +137,36 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void Move(Vector2 velocity) {
+	public void Move() {
+		float moveSpeed;
+
+		switch (currForm) {
+			case PlayerForm.Attack:
+				moveSpeed = speed;
+				break;
+			case PlayerForm.Defense:
+				moveSpeed = speed * 0.5f;
+				break;
+			case PlayerForm.Speed:
+				moveSpeed = speed * 2;
+				break;
+			default:
+				moveSpeed = speed;
+				break;
+		}
+
+		//movement
+		velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime,
+		                       Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime);
 		transform.Translate(velocity);
 	}
 
 	public void ChangeForm(PlayerForm form) {
-		if (prevForm != form) {
 			prevForm = currForm;
 			currForm = form;
 			formText.text = currForm.ToString();
-		}
+			myRenderer.sprite = formSprites[(int) currForm];
+		
 	}
 
 	PlayerForm PreviousForm() {
