@@ -16,6 +16,7 @@ public class Projectile : MonoBehaviour {
 	public ProjectileType type;
 	public float speed;
 	public float timeToDie = 5;
+	public Vector2 velocity;
 
 	#endregion
 	
@@ -24,10 +25,25 @@ public class Projectile : MonoBehaviour {
 	}
 	
 	void Update () {
-		transform.Translate(new Vector2(0f, speed * Time.deltaTime ) );
+		transform.Translate( velocity * speed * Time.deltaTime );
+	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		print(other.tag);
+		if (type == ProjectileType.PlayerShot) {
+			if (other.tag == "Enemy") {
+				other.GetComponent<Enemy>().TakeDamage();
+				Destroy( gameObject );
+			}
+		} else {
+			if (other.tag == "Player") {
+				other.GetComponent<Player>().TakeDamage();
+				Destroy(gameObject);
+			}
+		}
 	}
 }
 
 public enum ProjectileType {
-	Solid, Energy
+	PlayerShot, Energy, Solid
 }

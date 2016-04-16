@@ -2,6 +2,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Lifetime;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// Author: Matt Gipson
@@ -23,11 +26,17 @@ public class Player : MonoBehaviour {
 	public int fireRate = 5;
 	int timeShooting;
 
+	public int health = 10;
+	public int lives = 3;
+
+	public Text formText;
+
 	#endregion
 
 	void Start() {
 		currForm = prevForm = startingForm;
 		projectile = Resources.Load<GameObject>("Prefabs/Projectile - Player");
+		formText.text = currForm.ToString();
 	}
 
 	void Update() {
@@ -42,9 +51,27 @@ public class Player : MonoBehaviour {
 			ChangeForm(PlayerForm.Speed);
 		}
 
+		float moveSpeed;
+
+		switch (currForm) {
+			case PlayerForm.Attack:
+				moveSpeed = speed;
+				break;
+			case PlayerForm.Defense:
+				moveSpeed = speed * 0.5f;
+				break;
+			case PlayerForm.Speed:
+				moveSpeed = speed * 2;
+				break;
+			default:
+				moveSpeed = speed;
+				break;
+		}
+
 		//movement
-		velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime,
-		                       Input.GetAxisRaw("Vertical") * speed * Time.deltaTime);
+		velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime,
+		                       Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime);
+
 		Move(velocity);
 
 		//shooting
@@ -58,7 +85,32 @@ public class Player : MonoBehaviour {
 			timeShooting++;
 			if (timeShooting % fireRate == 0) {
 				GameObject temp = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
+				temp.GetComponent<Projectile>().velocity = new Vector2(0f, 1f);
+				temp.GetComponent<Projectile>().type = ProjectileType.PlayerShot;
 			}
+		}
+	}
+
+	public void TakeDamage() {
+		switch (currForm) {
+			case PlayerForm.Attack:
+				health -= 2;
+				break;
+			case PlayerForm.Defense:
+				health--;
+				break;
+			case PlayerForm.Speed:
+				health -= 4;
+				break;
+		}
+
+		if (health <= 0) {
+			//add animation, sound, sound delay and gameover/life removal
+			lives--;
+			if (lives <= 0) {
+				SceneManager.LoadScene("Gameover");
+			}
+			Destroy(gameObject);
 		}
 	}
 
@@ -67,9 +119,11 @@ public class Player : MonoBehaviour {
 	}
 
 	public void ChangeForm(PlayerForm form) {
-		prevForm = currForm;
-		currForm = form;
-		print("changd form from " + prevForm + " to " + currForm);
+		if (prevForm != form) {
+			prevForm = currForm;
+			currForm = form;
+			formText.text = currForm.ToString();
+		}
 	}
 
 	PlayerForm PreviousForm() {
