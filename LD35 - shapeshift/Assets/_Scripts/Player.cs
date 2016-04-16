@@ -18,6 +18,8 @@ public class Player : MonoBehaviour {
 
 	public PlayerForm startingForm;
 	PlayerForm currForm, prevForm;
+	Sprite[] formSprites;
+	SpriteRenderer myRenderer;
 
 	Vector2 velocity;
 	public float speed = 10;
@@ -40,9 +42,18 @@ public class Player : MonoBehaviour {
 	#endregion
 
 	void Start() {
-		Debug.LogWarning("finish player states - special abilities, sprite changing");
+		Debug.LogWarning("finish player states - special abilities");
+
+		formSprites = new Sprite[Enum.GetValues( typeof( PlayerForm ) ).Length];
+
+		for (int i = 0; i < Enum.GetValues(typeof (PlayerForm)).Length; i++) {
+			formSprites[i] = Resources.Load<Sprite>("Sprites/Player_" + (PlayerForm) i);
+		}
 
 		currForm = prevForm = startingForm;
+		myRenderer = GetComponent<SpriteRenderer>();
+		myRenderer.sprite = formSprites[(int) currForm];
+
 		projectile = Resources.Load<GameObject>("Prefabs/Projectile - Player");
 		formText.text = currForm.ToString();
 		timeShooting = 0;
@@ -52,11 +63,9 @@ public class Player : MonoBehaviour {
 		//change form?
 		if (Input.GetKeyDown(KeyCode.Alpha1)) {
 			ChangeForm(PlayerForm.Attack);
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha2)) {
+		} else if (Input.GetKeyDown(KeyCode.Alpha2)) {
 			ChangeForm(PlayerForm.Defense);
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha3)) {
+		} else if (Input.GetKeyDown(KeyCode.Alpha3)) {
 			ChangeForm(PlayerForm.Speed);
 		}
 
@@ -153,11 +162,11 @@ public class Player : MonoBehaviour {
 	}
 
 	public void ChangeForm(PlayerForm form) {
-		if (prevForm != form) {
 			prevForm = currForm;
 			currForm = form;
 			formText.text = currForm.ToString();
-		}
+			myRenderer.sprite = formSprites[(int) currForm];
+		
 	}
 
 	PlayerForm PreviousForm() {
