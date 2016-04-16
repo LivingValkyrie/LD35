@@ -27,8 +27,23 @@ public class Projectile : MonoBehaviour {
 	void Update () {
 		transform.Translate( velocity * speed * Time.deltaTime );
 	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		print(other.tag);
+		if (type == ProjectileType.PlayerShot) {
+			if (other.tag == "Enemy") {
+				other.GetComponent<Enemy>().TakeDamage();
+				Destroy( gameObject );
+			}
+		} else {
+			if (other.tag == "Player") {
+				other.GetComponent<Player>().TakeDamage();
+				Destroy(gameObject);
+			}
+		}
+	}
 }
 
 public enum ProjectileType {
-	Solid, Energy
+	PlayerShot, Energy, Solid
 }
