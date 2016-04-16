@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour {
 	#endregion
 
 	void Start() {
+		Debug.LogWarning("finish ai - movement, shooting ranges");
 		target = GameObject.FindWithTag("Player");
 
 		//print(target.name);

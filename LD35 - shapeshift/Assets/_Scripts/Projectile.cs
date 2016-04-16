@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour {
 
 	public ProjectileType type;
 	public float speed;
-	public float timeToDie = 5;
+	public float timeToDie = 3;
 	public Vector2 velocity;
 
 	#endregion
