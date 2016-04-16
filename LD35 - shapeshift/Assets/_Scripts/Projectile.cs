@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		print(other.tag);
+		//print(other.tag);
 		if (type == ProjectileType.PlayerShot) {
 			if (other.tag == "Enemy") {
 				other.GetComponent<Enemy>().TakeDamage();

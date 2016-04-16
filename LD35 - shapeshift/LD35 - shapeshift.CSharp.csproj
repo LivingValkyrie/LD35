@@ -69,7 +69,7 @@
     <Compile Include="Assets\_Scripts\Projectile.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Fonts\newbrilliant\READ_ME.TXT" />
+    <None Include="Assets\Resources\Fonts\newbrilliant\READ_ME.TXT" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
