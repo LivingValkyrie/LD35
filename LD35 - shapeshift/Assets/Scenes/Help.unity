@@ -244,7 +244,6 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -411,7 +410,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'ATTACK MODE SPECIAL
+  m_Text: 'ATTACK MODe
 
 '
 --- !u!222 &548306517
@@ -1147,7 +1146,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'DEFENSE MODE SPECIAL
+  m_Text: 'DEFENSE MODE
 
 '
 --- !u!222 &929094780
@@ -1222,7 +1221,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'SPEED MODE SPECIAL
+  m_Text: 'SPEED MODE
 
 '
 --- !u!222 &980693840
@@ -1297,7 +1296,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: FIRES 2 RAPID FIRE ENERGY CANNONS THAT USE AMMO
+  m_Text: 'FIRES 2 RAPID FIRE ENERGY CANNONS THAT USE AMMO
+
+
+    takes normal damage'
 --- !u!222 &1004264514
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1884,7 +1886,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BUILDS HEALTH OVER TIME
+  m_Text: 'BUILDS HEALTH OVER TIME
+
+
+    takes double damage'
 --- !u!222 &1443977639
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2097,7 +2102,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ABSORBS ENEMY ENERGY AND CONVERTS TO AMMO
+  m_Text: 'ABSORBS ENEMY ENERGY AND CONVERTS TO AMMO
+
+
+    takes half damage'
 --- !u!222 &1742435612
 CanvasRenderer:
   m_ObjectHideFlags: 0
