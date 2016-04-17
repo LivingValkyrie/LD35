@@ -46,6 +46,10 @@ public class Player : MonoBehaviour {
 
 	Slider healthSlider;
 
+	int timeRecharging;
+	
+	int rechargeTime = 30;
+
 	#endregion
 
 	void Start() {
@@ -120,6 +124,7 @@ public class Player : MonoBehaviour {
 						}
 					}
 				}
+				formText.text = "Attack: Ammo " + attackSpecialAmmo;
 				break;
 			case PlayerForm.Defense:
 				if (Input.GetKeyDown(KeyCode.Space)) {
@@ -130,9 +135,28 @@ public class Player : MonoBehaviour {
 					if (absorptionField) {
 						Destroy(absorptionField);
 					}
+				}else if (Input.GetKey(KeyCode.Space)) {
+					formText.text = "Defense: Ammo " + attackSpecialAmmo;
 				}
 				break;
 			case PlayerForm.Speed:
+				if ( Input.GetKeyDown( KeyCode.Space ) ) {
+					//print("key down");
+					timeRecharging = 0;
+				} else if (Input.GetKeyUp(KeyCode.Space)) {
+					//print( "key up" );
+					int healthToGain = timeRecharging / rechargeTime;
+					Mathf.Clamp(healthToGain, 0, 2);
+					//print( healthToGain );
+					health += healthToGain;
+					Mathf.Clamp(health, 0, 10);
+					formText.text = "Speed: Healed! " + healthToGain;
+					healthSlider.value = health;
+				} else if ( Input.GetKey( KeyCode.Space ) ) {
+					//print("charging");
+					timeRecharging++;
+					formText.text = "Speed: Charging! " + timeRecharging;
+				}
 				break;
 		}
 	}
