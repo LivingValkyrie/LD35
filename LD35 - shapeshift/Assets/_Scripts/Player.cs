@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
 	#region Fields
 
 	public PlayerForm startingForm;
-	PlayerForm currForm, prevForm;
+	PlayerForm currForm;
 	Sprite[] formSprites;
 	SpriteRenderer myRenderer;
 
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour {
 			formSprites[i] = Resources.Load<Sprite>("Sprites/Player_" + (PlayerForm) i);
 		}
 
-		currForm = prevForm = startingForm;
+		currForm = startingForm;
 		myRenderer = GetComponent<SpriteRenderer>();
 		myRenderer.sprite = formSprites[(int) currForm];
 
@@ -185,7 +185,6 @@ public class Player : MonoBehaviour {
 	}
 
 	public void ChangeForm(PlayerForm form) {
-		prevForm = currForm;
 		currForm = form;
 		formText.text = currForm.ToString();
 		myRenderer.sprite = formSprites[(int) currForm];

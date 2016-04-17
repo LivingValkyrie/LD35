@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour {
 		if (type == ProjectileType.PlayerShot) {
 			if (other.tag == "Enemy") {
 				if (other.GetComponent<Enemy>()) {
-					//print("enemy exist");
+					//print("toSpawn exist");
 					other.GetComponent<Enemy>().TakeDamage();
 				} else {
 					//print("doesnt exist");

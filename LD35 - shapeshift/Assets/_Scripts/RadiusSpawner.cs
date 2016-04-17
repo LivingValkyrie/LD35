@@ -7,20 +7,20 @@ using System.Collections.Generic;
 /// Contact: Deadwynn@gmail.com
 /// Domain: www.livingvalkyrie.net
 /// 
-/// Description: EnemySpawner 
+/// Description: RadiusSpawner 
 /// </summary>
-public class EnemySpawner : MonoBehaviour {
+public class RadiusSpawner : MonoBehaviour {
 
 	#region Fields
 
 	public float spawnRate = 2;
 	public float spawnRadius = 5;
-	GameObject enemy; 
+	public GameObject toSpawn; 
 
 	#endregion
 	
 	void Start () {
-		enemy = Resources.Load<GameObject>("Prefabs/Enemy");
+		//toSpawn = Resources.Load<GameObject>("Prefabs/Enemy");
 		InvokeRepeating("SpawnEnemy", spawnRate, spawnRate);
 	}
 	
@@ -29,6 +29,7 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void SpawnEnemy() {
-		Instantiate(enemy, Random.insideUnitCircle * spawnRadius, Quaternion.identity);
+		Vector2 spawnPos = new Vector2( transform.position.x, transform.position.y );
+		Instantiate( toSpawn, ( Random.insideUnitCircle * spawnRadius ) + spawnPos, Quaternion.identity );
 	}
 }
