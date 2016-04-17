@@ -84,7 +84,7 @@ MonoBehaviour:
   minRange: 3
   maxRange: 5
   fireRate: 30
-  health: 3
+  health: 1
 --- !u!212 &21266978
 SpriteRenderer:
   m_ObjectHideFlags: 1
