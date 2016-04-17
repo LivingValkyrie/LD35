@@ -45,15 +45,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\_Scripts\AbsorptionField.cs" />
      <Compile Include="Assets\_Scripts\Coin.cs" />
      <Compile Include="Assets\_Scripts\Enemy.cs" />
      <Compile Include="Assets\_Scripts\GameController.cs" />
      <Compile Include="Assets\_Scripts\HighScore.cs" />
+     <Compile Include="Assets\_Scripts\LivesText.cs" />
      <Compile Include="Assets\_Scripts\Player.cs" />
      <Compile Include="Assets\_Scripts\Projectile.cs" />
      <Compile Include="Assets\_Scripts\RadiusSpawner.cs" />
      <Compile Include="Assets\_Scripts\SceneTransistions.cs" />
+     <Compile Include="Assets\_Scripts\ScoreText.cs" />
      <None Include="Assets\Resources\Music\BeepBox_Codes.txt" />
      <None Include="Assets\Resources\Sprites\Stuff.txt" />
  <Reference Include="UnityEngine.UI">
