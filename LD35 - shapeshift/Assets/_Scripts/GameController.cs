@@ -8,12 +8,27 @@ public class GameController : MonoBehaviour {
 	public int lives;
 
 	void Awake() {
-		DontDestroyOnLoad (this);
-		if ( music == null) {
+		DontDestroyOnLoad(this);
+		if (music == null) {
 			music = this;
 			score = 0;
 		} else {
-			Destroy (gameObject);
+			Destroy(gameObject);
 		}
 	}
+
+	public void Respawn() {
+		Invoke("SpawnPlayer", 3);
+	}
+
+	void SpawnPlayer() {
+		foreach ( GameObject go in GameObject.FindGameObjectsWithTag( "Enemy" ) ) {
+			Destroy( go );
+		}
+
+		GameObject temp = Resources.Load<GameObject>("Prefabs/Player");
+		Instantiate(temp, Vector3.zero, Quaternion.identity);
+		
+	}
+
 }

@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour {
 	public int fireRate;
 	GameObject projectile;
 	public int health;
+	int scoreValue;
 
 	#endregion
 
@@ -34,6 +35,21 @@ public class Enemy : MonoBehaviour {
 		//velocity = transform.position;
 		isShooting = false;
 		projectile = Resources.Load<GameObject>("Prefabs/Projectile - Enemy");
+
+		switch (type) {
+				case EnemyType.Large:
+				scoreValue = 500;
+				break;
+				case EnemyType.Medium:
+				scoreValue = 300;
+				break;
+				case EnemyType.Small:
+				scoreValue = 100;
+				break;
+			default:
+				scoreValue = 0;
+				break;
+		}
 	}
 
 	void Update() {
@@ -62,6 +78,8 @@ public class Enemy : MonoBehaviour {
 				isShooting = false;
 				timeShooting = 0;
 			}
+		}else if (!target) {
+			transform.Translate( Vector3.down * moveSpeed * 5 * Time.deltaTime );
 		}
 	}
 
@@ -69,6 +87,7 @@ public class Enemy : MonoBehaviour {
 		health--;
 		if (health <= 0) {
 			//add sound, sound delay and animation
+			GameController.music.score += scoreValue;
 			Destroy(gameObject);
 		}
 	}

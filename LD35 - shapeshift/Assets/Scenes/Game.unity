@@ -1017,6 +1017,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1483,6 +1484,7 @@ GameObject:
   - 114: {fileID: 596265406}
   - 114: {fileID: 596265409}
   - 114: {fileID: 596265410}
+  - 114: {fileID: 596265411}
   m_Layer: 0
   m_Name: Enemy Spawner
   m_TagString: Untagged
@@ -1558,6 +1560,20 @@ MonoBehaviour:
   spawnRate: 1
   spawnRadius: 15
   toSpawn: {fileID: 187810, guid: 3f0aef80ad0b1fb44909620a987cb6af, type: 2}
+--- !u!114 &596265411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 596265405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321ef4ae72b013046bf56024fe5247aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRate: 2
+  spawnRadius: 5
+  toSpawn: {fileID: 127688, guid: 1a32e43a15ce0164e8a5a65de9a7e4b2, type: 2}
 --- !u!1 &703534184
 GameObject:
   m_ObjectHideFlags: 0
@@ -1695,7 +1711,7 @@ GameObject:
   - 222: {fileID: 758853298}
   - 114: {fileID: 758853297}
   m_Layer: 5
-  m_Name: Form
+  m_Name: FormText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2925,6 +2941,7 @@ GameObject:
   - 224: {fileID: 1781632872}
   - 222: {fileID: 1781632874}
   - 114: {fileID: 1781632873}
+  - 114: {fileID: 1781632875}
   m_Layer: 5
   m_Name: Lives
   m_TagString: Untagged
@@ -2988,6 +3005,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1781632871}
+--- !u!114 &1781632875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1781632871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6d401bcef1423c4bb2aa1d05dad82d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1789206865
 GameObject:
   m_ObjectHideFlags: 0
@@ -3057,6 +3085,7 @@ GameObject:
   - 224: {fileID: 2032655946}
   - 222: {fileID: 2032655948}
   - 114: {fileID: 2032655947}
+  - 114: {fileID: 2032655949}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -3120,6 +3149,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2032655945}
+--- !u!114 &2032655949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2032655945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d857c5ff7ff146d488278214a03c471e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2039386846
 GameObject:
   m_ObjectHideFlags: 0
@@ -3188,7 +3228,7 @@ GameObject:
   - 224: {fileID: 2045612748}
   - 114: {fileID: 2045612749}
   m_Layer: 5
-  m_Name: Health
+  m_Name: HealthSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

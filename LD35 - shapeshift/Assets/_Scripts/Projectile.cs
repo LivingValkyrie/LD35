@@ -44,7 +44,7 @@ public class Projectile : MonoBehaviour {
 			}
 		} else {
 			if (other.tag == "Player") {
-				print("hit player");
+				//print("hit player");
 				other.GetComponent<Player>().TakeDamage();
 				Destroy(gameObject);
 			} else if (other.tag == "AbsorptionField") {

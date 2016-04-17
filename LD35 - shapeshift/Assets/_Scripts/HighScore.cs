@@ -20,6 +20,8 @@ public class HighScore : MonoBehaviour {
 	public Text[] scoreTexts;
 	static bool needsUpdated = false;
 
+	public bool updateByController;
+
 	#endregion
 
 	void Start() {
@@ -35,6 +37,13 @@ public class HighScore : MonoBehaviour {
 				scoreTexts[i].text = PlayerPrefs.GetInt( "Score " + i ).ToString();
 			}
 			needsUpdated = false;
+		}
+
+		if (updateByController) {
+			print("this ran");
+			UpdateScores(GameController.music.score);
+			Destroy(GameController.music.gameObject);
+			Destroy(gameObject);
 		}
 	}
 

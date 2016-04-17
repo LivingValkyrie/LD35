@@ -67,10 +67,12 @@
     <Compile Include="Assets\_Scripts\Enemy.cs" />
     <Compile Include="Assets\_Scripts\GameController.cs" />
     <Compile Include="Assets\_Scripts\HighScore.cs" />
+    <Compile Include="Assets\_Scripts\LivesText.cs" />
     <Compile Include="Assets\_Scripts\Player.cs" />
     <Compile Include="Assets\_Scripts\Projectile.cs" />
     <Compile Include="Assets\_Scripts\RadiusSpawner.cs" />
     <Compile Include="Assets\_Scripts\SceneTransistions.cs" />
+    <Compile Include="Assets\_Scripts\ScoreText.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Fonts\newbrilliant\READ_ME.TXT" />
