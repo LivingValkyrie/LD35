@@ -94,11 +94,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 432862, guid: 87570199e69f7d341a8a030cd6a96b56, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 11.9
       objectReference: {fileID: 0}
     - target: {fileID: 432862, guid: 87570199e69f7d341a8a030cd6a96b56, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.74
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 432862, guid: 87570199e69f7d341a8a030cd6a96b56, type: 2}
       propertyPath: m_LocalPosition.z
@@ -171,6 +171,22 @@ Prefab:
     - target: {fileID: 6067572, guid: 87570199e69f7d341a8a030cd6a96b56, type: 2}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
       value: -0.1898706
+      objectReference: {fileID: 0}
+    - target: {fileID: 11496248, guid: 87570199e69f7d341a8a030cd6a96b56, type: 2}
+      propertyPath: minXPosition
+      value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 11496248, guid: 87570199e69f7d341a8a030cd6a96b56, type: 2}
+      propertyPath: maxXPosition
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 11496248, guid: 87570199e69f7d341a8a030cd6a96b56, type: 2}
+      propertyPath: minYPosition
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11496248, guid: 87570199e69f7d341a8a030cd6a96b56, type: 2}
+      propertyPath: maxYPosition
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 87570199e69f7d341a8a030cd6a96b56, type: 2}
@@ -1731,7 +1747,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 25}
+  m_AnchoredPosition: {x: -79, y: 25}
   m_SizeDelta: {x: 612, y: 74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &758853297
@@ -1760,10 +1776,10 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text

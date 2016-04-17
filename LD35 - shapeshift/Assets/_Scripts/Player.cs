@@ -218,7 +218,14 @@ public class Player : MonoBehaviour {
 		velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime,
 		                       Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime);
 		transform.Translate(velocity);
+
+		Vector3 pos = transform.position;
+		pos.x = Mathf.Clamp( pos.x, minXPosition, maxXPosition );
+		pos.y = Mathf.Clamp( pos.y, minYPosition, maxYPosition );
+		transform.position = pos;
 	}
+
+	public float minXPosition, maxXPosition, minYPosition, maxYPosition;
 
 	public void ChangeForm(PlayerForm form) {
 		currForm = form;
