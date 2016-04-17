@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 
 /// <summary>
 /// Author: Matt Gipson
@@ -10,7 +11,6 @@ using System.Collections.Generic;
 /// Description: Projectile 
 /// </summary>
 public class Projectile : MonoBehaviour {
-
 	#region Fields
 
 	public ProjectileType type;
@@ -19,30 +19,38 @@ public class Projectile : MonoBehaviour {
 	public Vector2 velocity;
 
 	#endregion
-	
-	void Start () {
+
+	void Start() {
 		Destroy(gameObject, timeToDie);
 	}
-	
-	void Update () {
-		transform.Translate( velocity * speed * Time.deltaTime );
+
+	void Update() {
+		transform.Translate(velocity * speed * Time.deltaTime);
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
 		//print(other.tag);
 		if (type == ProjectileType.PlayerShot) {
 			if (other.tag == "Enemy") {
-				other.GetComponent<Enemy>().TakeDamage();
-				Destroy( gameObject );
+				if (other.GetComponent<Enemy>()) {
+					//print("enemy exist");
+					other.GetComponent<Enemy>().TakeDamage();
+				} else {
+					//print("doesnt exist");
+					Destroy(other.gameObject);
+				}
+
+				Destroy(gameObject);
 			}
 		} else {
 			if (other.tag == "Player") {
+				print("hit player");
 				other.GetComponent<Player>().TakeDamage();
 				Destroy(gameObject);
-			}else if ( other.tag == "AbsorptionField" ) {
+			} else if (other.tag == "AbsorptionField") {
 				if (type == ProjectileType.Energy) {
-					other.transform.parent.GetComponent<Player> ().attackSpecialAmmo++;
-					Destroy (gameObject);
+					other.transform.parent.GetComponent<Player>().attackSpecialAmmo++;
+					Destroy(gameObject);
 				}
 			}
 		}
@@ -50,5 +58,8 @@ public class Projectile : MonoBehaviour {
 }
 
 public enum ProjectileType {
-	PlayerShot, Energy, Solid, Meteor
+	PlayerShot,
+	Energy,
+	Solid,
+	Meteor
 }
