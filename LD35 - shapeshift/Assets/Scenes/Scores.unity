@@ -1266,7 +1266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showScores: 1
-  resetScores: 1
+  resetScores: 0
   scoreTexts:
   - {fileID: 1859458139}
   - {fileID: 182859283}
@@ -1278,6 +1278,7 @@ MonoBehaviour:
   - {fileID: 622739567}
   - {fileID: 742890990}
   - {fileID: 698836492}
+  updateByController: 0
 --- !u!1 &1485665564
 GameObject:
   m_ObjectHideFlags: 0

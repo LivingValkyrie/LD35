@@ -30,7 +30,6 @@ public class Player : MonoBehaviour {
 	int timeShooting;
 
 	public int health = 10;
-	public int lives = 3;
 
 	public Text formText;
 
@@ -44,6 +43,8 @@ public class Player : MonoBehaviour {
 	public GameObject absorptionFieldPrefab;
 	public Vector2 absorptionFieldOffest;
 	GameObject absorptionField;
+
+	Slider healthSlider;
 
 	#endregion
 
@@ -61,8 +62,16 @@ public class Player : MonoBehaviour {
 		myRenderer.sprite = formSprites[(int) currForm];
 
 		projectile = Resources.Load<GameObject>("Prefabs/Projectile - Player");
+		if (!formText) {
+			formText = GameObject.Find("FormText").GetComponent<Text>();
+		}
 		formText.text = currForm.ToString();
 		timeShooting = 0;
+
+		healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
+		healthSlider.maxValue = health;
+		healthSlider.minValue = 0;
+		healthSlider.value = health;
 	}
 
 	void Update() {
@@ -150,12 +159,15 @@ public class Player : MonoBehaviour {
 				break;
 		}
 
+		healthSlider.value = health;
+
 		if (health <= 0) {
 			//add animation, sound, sound delay and gameover/life removal
-			lives--;
-			if (lives <= 0) {
+			GameController.music.lives--;
+			if ( GameController.music.lives <= 0) {
 				SceneManager.LoadScene("Gameover");
 			}
+			GameController.music.Respawn();
 			Destroy(gameObject);
 		}
 	}
