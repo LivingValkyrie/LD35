@@ -82,7 +82,6 @@ MonoBehaviour:
   speed: 5
   fireRate: 15
   health: 10
-  lives: 3
   formText: {fileID: 0}
   attackSpecialAmmo: 1000
   attackSpecialFireRate: 5
@@ -90,6 +89,10 @@ MonoBehaviour:
   absorptionFieldPrefab: {fileID: 176896, guid: 1514ecda8fc43324eba2c9941f08f528,
     type: 2}
   absorptionFieldOffest: {x: 0, y: 1.33}
+  minXPosition: -12
+  maxXPosition: 12
+  minYPosition: -6
+  maxYPosition: 6
 --- !u!212 &21266232
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -46,6 +46,10 @@ public class Player : MonoBehaviour {
 
 	Slider healthSlider;
 
+	int timeRecharging;
+	
+	int rechargeTime = 30;
+
 	#endregion
 
 	void Start() {
@@ -120,6 +124,7 @@ public class Player : MonoBehaviour {
 						}
 					}
 				}
+				formText.text = "Attack: Ammo " + attackSpecialAmmo;
 				break;
 			case PlayerForm.Defense:
 				if (Input.GetKeyDown(KeyCode.Space)) {
@@ -130,9 +135,28 @@ public class Player : MonoBehaviour {
 					if (absorptionField) {
 						Destroy(absorptionField);
 					}
+				}else if (Input.GetKey(KeyCode.Space)) {
+					formText.text = "Defense: Ammo " + attackSpecialAmmo;
 				}
 				break;
 			case PlayerForm.Speed:
+				if ( Input.GetKeyDown( KeyCode.Space ) ) {
+					//print("key down");
+					timeRecharging = 0;
+				} else if (Input.GetKeyUp(KeyCode.Space)) {
+					//print( "key up" );
+					int healthToGain = timeRecharging / rechargeTime;
+					Mathf.Clamp(healthToGain, 0, 2);
+					//print( healthToGain );
+					health += healthToGain;
+					Mathf.Clamp(health, 0, 10);
+					formText.text = "Speed: Healed! " + healthToGain;
+					healthSlider.value = health;
+				} else if ( Input.GetKey( KeyCode.Space ) ) {
+					//print("charging");
+					timeRecharging++;
+					formText.text = "Speed: Charging! " + timeRecharging;
+				}
 				break;
 		}
 	}
@@ -194,7 +218,14 @@ public class Player : MonoBehaviour {
 		velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime,
 		                       Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime);
 		transform.Translate(velocity);
+
+		Vector3 pos = transform.position;
+		pos.x = Mathf.Clamp( pos.x, minXPosition, maxXPosition );
+		pos.y = Mathf.Clamp( pos.y, minYPosition, maxYPosition );
+		transform.position = pos;
 	}
+
+	public float minXPosition, maxXPosition, minYPosition, maxYPosition;
 
 	public void ChangeForm(PlayerForm form) {
 		currForm = form;
