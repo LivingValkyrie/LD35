@@ -63,7 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_Scripts\AbsorptionField.cs" />
     <Compile Include="Assets\_Scripts\Coin.cs" />
     <Compile Include="Assets\_Scripts\Enemy.cs" />
     <Compile Include="Assets\_Scripts\GameController.cs" />

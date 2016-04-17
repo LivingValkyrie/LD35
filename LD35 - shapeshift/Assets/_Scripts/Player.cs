@@ -30,7 +30,6 @@ public class Player : MonoBehaviour {
 	int timeShooting;
 
 	public int health = 10;
-	public int lives = 3;
 
 	public Text formText;
 
@@ -152,12 +151,22 @@ public class Player : MonoBehaviour {
 
 		if (health <= 0) {
 			//add animation, sound, sound delay and gameover/life removal
-			lives--;
-			if (lives <= 0) {
+			GameController.music.lives--;
+			if ( GameController.music.lives <= 0) {
 				SceneManager.LoadScene("Gameover");
 			}
+			Invoke("Respawn", 3);
 			Destroy(gameObject);
 		}
+	}
+
+	void Respawn() {
+		foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy")) {
+			Destroy(go);
+		}
+
+		GameObject temp = Resources.Load<GameObject>("Prefabs/Player");
+		Instantiate(temp, Vector3.zero, Quaternion.identity);
 	}
 
 	public void Move() {
