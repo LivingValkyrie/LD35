@@ -42,8 +42,9 @@ public class Enemy : MonoBehaviour {
 		} else if (target) {
 			velocity = target.transform.position - transform.position;
 
-			//print(velocity);
-			transform.Translate(velocity * moveSpeed * Time.deltaTime );
+			if (velocity.magnitude >= minRange) {
+				transform.Translate(velocity * moveSpeed * Time.deltaTime);
+			}
 
 			//transform.LookAt(target.transform);
 			//transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
@@ -53,7 +54,7 @@ public class Enemy : MonoBehaviour {
 				                                              transform.TransformDirection(Vector3.up));
 				transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
 			} //
-			if (velocity.magnitude >= minRange && velocity.magnitude <= maxRange) {
+			if (velocity.magnitude <= maxRange) {
 				//within ranges
 				isShooting = true;
 				Shoot();
