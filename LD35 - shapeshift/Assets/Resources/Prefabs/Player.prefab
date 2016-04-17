@@ -79,11 +79,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingForm: 0
-  speed: 5
+  speed: 3
   fireRate: 15
   health: 10
   formText: {fileID: 0}
-  attackSpecialAmmo: 1000
+  attackSpecialAmmo: 60
   attackSpecialFireRate: 5
   attackSpecialOffset: {x: 0.35, y: -0.15}
   absorptionFieldPrefab: {fileID: 176896, guid: 1514ecda8fc43324eba2c9941f08f528,
