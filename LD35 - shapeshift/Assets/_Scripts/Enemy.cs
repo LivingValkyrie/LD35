@@ -13,8 +13,10 @@ public class Enemy : MonoBehaviour {
 	#region Fields
 
 	public EnemyType type;
+	public bool moveBySetVelocity;
+	public Vector2 velocity;
+	public float moveSpeed = 3;
 	GameObject target;
-	Vector2 velocity;
 	public float minRange, maxRange;
 	bool isShooting;
 	int timeShooting;
@@ -35,10 +37,22 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void Update() {
-		if (target) {
+		if (moveBySetVelocity) {
+			transform.Translate(velocity * moveSpeed * Time.deltaTime);
+		} else if (target) {
 			velocity = target.transform.position - transform.position;
+
 			//print(velocity);
-			transform.Translate(velocity * Time.deltaTime);
+			transform.Translate(velocity * moveSpeed * Time.deltaTime );
+
+			//transform.LookAt(target.transform);
+			//transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
+			// pasted code. doesnt quite fit what i want, but gives a cool AI effect
+			if (type != EnemyType.Large) {
+				Quaternion rotation = Quaternion.LookRotation(target.transform.position - transform.position,
+				                                              transform.TransformDirection(Vector3.up));
+				transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+			} //
 			if (velocity.magnitude >= minRange && velocity.magnitude <= maxRange) {
 				//within ranges
 				isShooting = true;
@@ -70,5 +84,7 @@ public class Enemy : MonoBehaviour {
 }
 
 public enum EnemyType {
-	Basic
+	Small,
+	Medium,
+	Large
 }
