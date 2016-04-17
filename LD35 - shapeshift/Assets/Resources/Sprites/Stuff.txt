@@ -1,0 +1,6 @@
+Sprite:
+Neon Filter Glow Size 10
+
+Text:
+Size 80
+Neon Filter glow size 30
