@@ -49,9 +49,14 @@
      <Compile Include="Assets\_Scripts\DontDestroyOnLoad.cs" />
      <Compile Include="Assets\_Scripts\Enemy.cs" />
      <Compile Include="Assets\_Scripts\EnemySpawner.cs" />
+     <Compile Include="Assets\_Scripts\EnemySpawnerLarge.cs" />
+     <Compile Include="Assets\_Scripts\EnemySpawnerMedium.cs" />
+     <Compile Include="Assets\_Scripts\EnemySpawnerSmall.cs" />
      <Compile Include="Assets\_Scripts\Player.cs" />
      <Compile Include="Assets\_Scripts\Projectile.cs" />
+     <Compile Include="Assets\_Scripts\SceneTransistions.cs" />
      <None Include="Assets\Resources\Music\BeepBox_Codes.txt" />
+     <None Include="Assets\Resources\Sprites\Stuff.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
