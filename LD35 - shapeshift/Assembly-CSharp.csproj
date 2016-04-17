@@ -51,7 +51,9 @@
      <Compile Include="Assets\_Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\_Scripts\EnemySpawnerLarge.cs" />
      <Compile Include="Assets\_Scripts\EnemySpawnerMedium.cs" />
+     <Compile Include="Assets\_Scripts\EnemySpawnerMeteor.cs" />
      <Compile Include="Assets\_Scripts\EnemySpawnerSmall.cs" />
+     <Compile Include="Assets\_Scripts\HighScore.cs" />
      <Compile Include="Assets\_Scripts\Player.cs" />
      <Compile Include="Assets\_Scripts\Projectile.cs" />
      <Compile Include="Assets\_Scripts\SceneTransistions.cs" />

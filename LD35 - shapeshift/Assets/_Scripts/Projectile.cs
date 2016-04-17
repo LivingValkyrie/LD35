@@ -40,13 +40,15 @@ public class Projectile : MonoBehaviour {
 				other.GetComponent<Player>().TakeDamage();
 				Destroy(gameObject);
 			}else if ( other.tag == "AbsorptionField" ) {
-				other.transform.parent.GetComponent<Player>().attackSpecialAmmo++;
-				Destroy( gameObject );
+				if (type == ProjectileType.Energy) {
+					other.transform.parent.GetComponent<Player> ().attackSpecialAmmo++;
+					Destroy (gameObject);
+				}
 			}
 		}
 	}
 }
 
 public enum ProjectileType {
-	PlayerShot, Energy, Solid
+	PlayerShot, Energy, Solid, Meteor
 }
