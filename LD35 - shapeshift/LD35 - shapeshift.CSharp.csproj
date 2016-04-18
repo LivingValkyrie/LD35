@@ -73,6 +73,7 @@
     <Compile Include="Assets\_Scripts\RadiusSpawner.cs" />
     <Compile Include="Assets\_Scripts\SceneTransistions.cs" />
     <Compile Include="Assets\_Scripts\ScoreText.cs" />
+    <Compile Include="Assets\_Scripts\SplashScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Fonts\newbrilliant\READ_ME.TXT" />
